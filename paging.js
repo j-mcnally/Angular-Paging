@@ -20,10 +20,11 @@ angular.module('brantwills.paging', []).directive('paging', function () {
         scope.page = parseInt(scope.page) || 1;
         scope.total = parseInt(scope.total) || 0;
         scope.dots = scope.dots || '...';
-        scope.ulClass = scope.ulClass || 'pagination';
+        scope.divClass = scope.divClass || 'ui pagination menu';
+        scope.itemClass = scope.itemClass || ''
         scope.adjacent = parseInt(scope.adjacent) || 2;
         scope.activeClass = scope.activeClass || 'active';
-		scope.disabledClass = scope.disabledClass || 'disabled';
+        scope.disabledClass = scope.disabledClass || 'disabled';
 
         scope.scrollTop = scope.$eval(attrs.scrollTop);
         scope.hideIfEmpty = scope.$eval(attrs.hideIfEmpty);
@@ -128,7 +129,7 @@ angular.module('brantwills.paging', []).directive('paging', function () {
     function addPrev(scope, pageCount) {
 
         // Ignore if we are not showing
-		// or there are no pages to display
+        // or there are no pages to display
         if (!scope.showPrevNext || pageCount < 1) {
             return;
         }
@@ -169,7 +170,7 @@ angular.module('brantwills.paging', []).directive('paging', function () {
     function addNext(scope, pageCount) {
 
         // Ignore if we are not showing 
-		// or there are no pages to display
+        // or there are no pages to display
         if (!scope.showPrevNext || pageCount < 1) {
             return;
         }
@@ -278,22 +279,24 @@ angular.module('brantwills.paging', []).directive('paging', function () {
             dots: '@',
             hideIfEmpty: '@',
             ulClass: '@',
-			activeClass: '@',
-			disabledClass: '@',
+            activeClass: '@',
+            disabledClass: '@',
             adjacent: '@',
             scrollTop: '@',
             showPrevNext: '@',
             pagingAction: '&'
         },
         template: 
-			'<ul ng-hide="Hide" ng-class="ulClass"> ' +
-				'<li ' +
-				'title="{{Item.title}}" ' +
-				'ng-class="Item.liClass" ' +
-				'ng-click="Item.action()" ' +
-				'ng-repeat="Item in List"> ' +
-				'<span ng-bind="Item.value"></span> ' +
-            '</ul>',
+            '<div ng-hide="Hide" ng-class="divClass"> ' +
+                '<a class="item"' +
+                'href="javascript:;"' +
+                'title="{{Item.title}}" ' +
+                'ng-class="Item.liClass" ' +
+                'ng-click="Item.action()" ' +
+                'ng-repeat="Item in List"> ' +
+                '<span ng-bind="Item.value"></span> ' +
+                '</a>' +
+            '</div>',
         link: function (scope, element, attrs) {
             
             // Hook in our watched items 
